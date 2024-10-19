@@ -8,7 +8,7 @@ const Loader: React.FC<LoaderProps> = ({ className, splashText }) => {
   return (
     <div
       className={cn(
-        "absolute z-10 flex flex-col items-center h-screen w-screen bg-primary transition-all duration-150 opacity-100",
+        "absolute z-10 flex flex-col items-center h-full md:h-screen w-screen bg-primary transition-all duration-150 opacity-100",
         className
       )}
     >

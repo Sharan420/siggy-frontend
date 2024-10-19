@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { sample } from "lodash";
 import Loader from "./pages/Loader";
-import Form from "./pages/Form";
+import InputForm from "./pages/InputForm";
+//import { createBrowserRouter } from "react-router-dom";
 
 const App = () => {
   const splashtext = [
@@ -25,8 +26,7 @@ const App = () => {
     "RR band karo",
   ];
 
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const [loaded, setLoaded] = useState(false);
   const [removeLoader, setRemoveLoader] = useState(false);
@@ -49,10 +49,8 @@ const App = () => {
 
   return (
     <>
-      {!removeLoader && (
-        <Loader className={loaded ? "opacity-0" : ""} splashText={splashText} />
-      )}
-      <Form />
+      {!removeLoader && <Loader className={loaded ? "opacity-0" : ""} splashText={splashText} />}
+      <InputForm />
     </>
   );
 };
