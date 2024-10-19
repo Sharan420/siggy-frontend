@@ -1,4 +1,8 @@
-const Loader = () => {
+interface LoaderProps {
+  className?: string;
+}
+
+const Loader: React.FC<LoaderProps> = ({ className }) => {
   const splashtext = [
     "Juice Pilaun, Mausambi Ka!",
     "HARAMZADE!",
@@ -25,7 +29,12 @@ const Loader = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen w-screen bg-primary">
+    <div
+      className={
+        "flex flex-col items-center h-screen w-screen bg-primary opacity-100 transition-all duration-150 " +
+        className
+      }
+    >
       <div className="flex flex-col justify-center h-full w-fit">
         <h1 className="text-white font-black italic text-[6rem] tracking-widest leading-[1em]">
           SIGGY
