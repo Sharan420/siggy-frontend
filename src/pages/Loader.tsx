@@ -1,39 +1,16 @@
+import { cn } from "@/lib/utils";
 interface LoaderProps {
   className?: string;
+  splashText?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ className }) => {
-  const splashtext = [
-    "Juice Pilaun, Mausambi Ka!",
-    "HARAMZADE!",
-    "KEK!!?!?!?",
-    "diet ka kya hua teri bsdk?",
-    "Navratre Khatam?",
-    "Karli Winter Arc Puri?",
-    "Guru Ji ka pyaar dilata hu Aaja",
-    "Bhaiya, 2 Plate Poha dena",
-    "Twenchy Rupees ke Momos miljugi?",
-    "I work for ankur warikoo btw",
-    "bore hogaya hu, kuch naya batao",
-    "Teri Maa ki aankh, kya chahiye?",
-    "Bsdk padhlene de",
-    "Kya chahiye bhai?",
-    "Lurr Chusta hai?",
-    "Ek plate chowmein dena",
-    "Ek chakke ne match nahi jitaya",
-    "RR band karo",
-  ];
-
-  const randomSplash = () => {
-    return splashtext[Math.floor(Math.random() * splashtext.length)];
-  };
-
+const Loader: React.FC<LoaderProps> = ({ className, splashText }) => {
   return (
     <div
-      className={
-        "flex flex-col items-center h-screen w-screen bg-primary opacity-100 transition-all duration-150 " +
+      className={cn(
+        "absolute z-10 flex flex-col items-center h-screen w-screen bg-primary transition-all duration-150 opacity-100",
         className
-      }
+      )}
     >
       <div className="flex flex-col justify-center h-full w-fit">
         <h1 className="text-white font-black italic text-[6rem] tracking-widest leading-[1em]">
@@ -64,7 +41,7 @@ const Loader: React.FC<LoaderProps> = ({ className }) => {
               ></animateTransform>
             </path>
           </svg>
-          <p className="text-white font-semibold text-md">{randomSplash()}</p>
+          <p className="text-white font-semibold text-md">{splashText}</p>
         </div>
       </div>
     </div>
