@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_API as string;
 
 interface Req {
   url: string;
