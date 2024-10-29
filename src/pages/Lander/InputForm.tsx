@@ -1,24 +1,29 @@
 "use client";
 
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { ClipboardIcon } from "lucide-react";
-import MenuItem from "@/components/MenuItem";
-import { getMenuItems, menuItem } from "@/lib/api";
-import noImage from "@/lib/assets/no-image-icon.png";
-import { sampleSize } from "lodash";
+// import MenuItem from "@/components/MenuItem";
+// import { getMenuItems, menuItem } from "@/lib/api";
+// import noImage from "@/lib/assets/no-image-icon.png";
+// import { sampleSize } from "lodash";
+
+const swiggyRegex = /^https:\/\/www\.swiggy\.com\/([a-zA-Z]+)\/([a-zA-Z0-9-]+)(?:\/[a-zA-Z0-9-]+)?$/;
 
 const InputForm = () => {
+  const navigate = useNavigate();
   const formSchema = z.object({
-    url: z.string().min(2, {
-      message: "url must be at least 2 characters.",
-    }),
+    url: z
+      .string()
+      .min(23, "The URL is too short!")
+      .max(150, "The URL is too long!")
+      .regex(swiggyRegex, "The URL doesn't seem quite right.."),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -26,15 +31,15 @@ const InputForm = () => {
     defaultValues: {
       url: "",
     },
+    mode: "all",
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    setMenuItems(await getMenuItems({ url: values.url }));
-    console.log(menuItems);
+    navigate({
+      pathname: "/restaurant",
+      search: createSearchParams({ url: values.url }).toString(),
+    });
   }
-
-  const [menuItems, setMenuItems] = useState([]);
 
   return (
     <div className="w-screen h-full md:h-screen flex flex-col items-center bg-background">
@@ -64,7 +69,20 @@ const InputForm = () => {
                     <Input
                       wrapperClassName="w-full"
                       placeholder="https://www.swiggy.com/city/hyderabad/social-serlingampally-circle-raidurg-rest800956"
-                      endAdornment={<ClipboardIcon className="w-5 h-5 cursor-pointer" onClick={() => {}} />}
+                      endAdornment={
+                        <ClipboardIcon
+                          className="w-5 h-5 cursor-pointer"
+                          onClick={async () => {
+                            try {
+                              const text = await navigator.clipboard.readText();
+                              form.setValue("url", text);
+                              form.trigger("url");
+                            } catch (error) {
+                              console.error(error);
+                            }
+                          }}
+                        />
+                      }
                       {...field}
                     />
                   </FormControl>
@@ -77,17 +95,6 @@ const InputForm = () => {
             </Button>
           </form>
         </Form>
-        <div className="flex flex-col gap-5 overflow-y-auto max-h-fit">
-          {sampleSize(menuItems, 2).map((item: menuItem) => (
-            <MenuItem
-              key={item.name}
-              Title={item.name}
-              Icon={item.image === "No Image" ? noImage : item.image}
-              Price={item.price}
-              Description={item.description}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
