@@ -42,7 +42,7 @@ const InputForm = () => {
   }
 
   return (
-    <div className="w-screen h-full md:h-screen flex flex-col items-center bg-background">
+    <div className="w-screen h-dvh md:h-screen flex flex-col items-center bg-background">
       <div className="h-full w-[80%] md:w-1/2 flex flex-col justify-center items-center gap-5">
         <div className="flex flex-col justify-center items-center gap-3">
           <h1 className="text-7xl italic font-black text-primary">SIGGY</h1>
