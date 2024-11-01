@@ -93,11 +93,13 @@ const Restaurant = () => {
           )}
         </CardContent>
       </Card>
-      {menuItems && (
+      {menuItems ? (
         <div className="w-11/12 md:w-2/3 flex flex-row gap-2">
           <h1 className="text-2xl font-bold">Price Range</h1>
           <Input placeholder="₹₹" onChange={handleBudgetChange} />
         </div>
+      ) : (
+        <div className="w-10 h-10 rounded-xl loaderICONblue"></div>
       )}
       <div className="flex flex-col gap-5 overflow-y-auto max-h-fit w-11/12 md:w-2/3 no-scrollbar">
         {budgetFood &&

@@ -14,7 +14,7 @@ import { ClipboardIcon } from "lucide-react";
 // import noImage from "@/lib/assets/no-image-icon.png";
 // import { sampleSize } from "lodash";
 
-const swiggyRegex = /^https:\/\/www\.swiggy\.com\/([a-zA-Z]+)\/([a-zA-Z0-9-]+)(?:\/[a-zA-Z0-9-]+)?$/;
+const swiggyRegex = /^https:\/\/www\.swiggy\.com\/city\/[a-z]+\/[a-z0-9-]+-[a-z0-9-]+-rest\d+(?:\?.*)?$/;
 
 const InputForm = () => {
   const navigate = useNavigate();
