@@ -105,7 +105,7 @@ const Restaurant = () => {
         {budgetFood &&
           budgetFood.map((item: menuItem) => (
             <MenuItem
-              key={item.name}
+              key={item.name + Math.floor(Math.random() * 1000)}
               Title={item.name}
               Icon={item.image === "No Image" ? noImage : item.image}
               Price={item.price}
